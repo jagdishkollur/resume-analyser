@@ -1,13 +1,13 @@
 import streamlit as st
 from dotenv import load_dotenv
-from google import genai
+from groq import Groq
 from pypdf import PdfReader
 import os
 
 load_dotenv(".env")
 
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
 )
 
 st.title("Resume Analyzer")
@@ -26,11 +26,9 @@ if st.button("Analyze Resume"):
             filename = uploaded_file.name
 
             if filename.endswith(".txt"):
-
                 resume = uploaded_file.read().decode("utf-8")
 
             elif filename.endswith(".pdf"):
-
                 pdf = PdfReader(uploaded_file)
 
                 resume = ""
@@ -42,7 +40,6 @@ if st.button("Analyze Resume"):
                         resume += page_text
 
             else:
-
                 st.error("Unsupported file format")
                 st.stop()
 
@@ -59,13 +56,18 @@ Resume:
 {resume}
 """
 
-            response = client.models.generate_content(
-                model="gemini-2.5-flash",
-                contents=prompt
+            response = client.chat.completions.create(
+                model="llama-3.3-70b-versatile",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ]
             )
 
         st.subheader("Analysis")
-        st.write(response.text)
+        st.write(response.choices[0].message.content)
 
     else:
         st.warning("Please upload a file first.")

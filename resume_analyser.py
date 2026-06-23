@@ -3,6 +3,7 @@ from google import genai
 import os
 
 load_dotenv(".env")
+print(os.getenv("XAI_API_KEY"))
 
 # Read resume file
 with open("resume.txt", "r", encoding="utf-8") as f:
