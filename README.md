@@ -69,3 +69,15 @@ Uploaded resumes are processed in memory during analysis and are not stored or l
 - Better recruiter prompts
 - Support DOCX uploads
 - Download analysis as PDF
+
+## What it does
+This project allows users to upload a resume in PDF or TXT format and receive AI-generated analysis.
+The app reviews the resume and provides:
+
+* Key strengths
+* Weaknesses
+* One suggestion to improve the resume
+
+The goal is to help job seekers quickly understand how their resume may look from a recruiter's perspective.
+
+The interface uses a custom design (navy/gold color scheme, serif headings) for a polished, professional feel.
